@@ -1,0 +1,27 @@
+#include <iostream>
+using namespace std;
+#define ll long long
+ 
+//Totient Function gives number of nos less than a given n and coprime with n.
+ 
+int totient(int n)
+{
+	int result = n;
+ 
+for(int i=2;i*i <= n;i++) 
+       	{ 
+         if (n % i == 0) 
+         	result =result- result/i; 
+         while (n%i==0) 
+         	n /= i; 
+       	} 
+	if(result>1)
+	result  =result- result/n;
+ 
+return result;
+}
+ 
+int main(){
+ 
+cout<<totient(15);
+}

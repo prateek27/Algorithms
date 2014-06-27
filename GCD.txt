@@ -1,0 +1,23 @@
+//Ways to calculate GCD Recursive , iterative and Binary 
+
+static long gcd(long a, long b){
+    a = Math.abs(a); b = Math.abs(b);
+    return (a==0)?b:gcd(b, a%b);
+  }
+
+
+static long gcd(long a, long b) {
+  long r, i;
+  while(b!=0){
+    r = a % b;
+    a = b;
+    b = r;
+  }
+  return a;
+}
+
+
+int gcd(int a, int b)
+{
+    while(b) b ^= a ^= b ^= a %= b;
+    return a;

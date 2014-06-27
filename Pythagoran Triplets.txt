@@ -1,0 +1,73 @@
+/*	Euclid's formula can be used to solve this which states that for any given an arbitrary pair of 
+	positive integers i and j with i > j. The formula states that the integers a = i^2 - j^2 , b = 2ij , 
+	c = i^2+ j^2 form a Pythagorean triple. Conditions on i and j are they must be co prime and
+	(i-j) must be odd Pseudo code for that portion is:
+
+  for (i = 2; i < =(sqrt(t) + 1); i++)
+     for (j = 1; j < i; j++)
+          if ((gcd(i,j) == 1) && ((i-j) % 2) && ((i*i + j*j) <= t))
+          {
+                k = 0;
+                a = i * i - j * j;
+                b = 2 * i * j;
+                c = i * i + j * j;
+                while ((++k) * c <= t)
+                  counter++;
+          }
+  */
+
+#include<stdio.h>
+#include<stack>
+#include<vector>
+struct triple
+{
+    int a,b,c;
+};
+using namespace std;
+int func(int m)
+{
+    int count=0;
+    stack < struct triple > pyth ;
+    struct triple temp;
+    temp.a=3;
+    temp.b=4;
+    temp.c=5;
+    pyth.push(temp);
+    while(pyth.size()!=0)
+    {
+        int aa,bb,cc;
+        aa=pyth.top().a;
+        bb=pyth.top().b;
+        cc=pyth.top().c;
+        count=count+(m/cc);
+        pyth.pop();
+        temp.a=aa-2*bb+2*cc;
+        temp.b=2*aa-bb+2*cc;
+        temp.c=2*aa-2*bb+3*cc;
+        if(temp.c<=m && temp.a<=m && temp.b<=m)
+            pyth.push(temp);
+        temp.a=aa+2*bb+2*cc;
+        temp.b=2*aa+bb+2*cc;
+        temp.c=2*aa+2*bb+3*cc;
+        if(temp.c<=m && temp.a<=m && temp.b<=m)
+            pyth.push(temp);
+        temp.a=2*(bb+cc)-aa;
+        temp.b=bb+2*cc-2*aa;
+        temp.c=2*bb+3*cc-2*aa;
+        if(temp.c<=m && temp.a<=m && temp.b<=m)
+            pyth.push(temp);
+    }
+    return count;
+}
+int main()
+{
+    int t;
+    scanf("%d",&t);
+    while(t--)
+    {
+        int n,m;
+        scanf("%d",&n);
+        printf("%d\n",func(n));
+    }
+    return 0;
+}
